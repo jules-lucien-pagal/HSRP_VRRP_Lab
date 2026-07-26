@@ -1,8 +1,14 @@
 ### VRRP & HSRP Projet ###
-#-- Level : Intermediate --#
-# Titre : {VRRP + HRSP} Cisco & Juniper
-# Contexte : Le but de ce Lab est de déployer une infrastructure sur les technologies Cisco & Juniper principalement en garantissant une redondance par passerelle (HRSP sur Juniper et HSRP sur Cisco).
-# OSPF a été utilisé comme IGP et BGP pour le Peering vers les Fournisseurs Internet Exchange ainsi que la redistribution des routes de BGP vers OSPF et de OSPF vers BGP.
+
+# -- Level : Intermediate -- #
+
+
+# Titre
+{VRRP + HRSP} Cisco & Juniper
+
+# Contexte 
+Le but de ce Lab est de déployer une infrastructure sur les technologies Cisco & Juniper principalement en garantissant une redondance par passerelle (HRSP sur Juniper et HSRP sur Cisco).
+OSPF a été utilisé comme IGP et BGP pour le Peering vers les Fournisseurs Internet Exchange ainsi que la redistribution des routes de BGP vers OSPF et de OSPF vers BGP.
 
 # Objectifs
 ~ Assurer une bascule du traffic de R100 vers R200 en cas de non disponibilité de R100 qui est master VRRP et assurer le tracking des liens et routes.
