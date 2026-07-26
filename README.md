@@ -11,10 +11,9 @@ Le but de ce Lab est de déployer une infrastructure sur les technologies Cisco 
 OSPF a été utilisé comme IGP et BGP pour le Peering vers les Fournisseurs Internet Exchange ainsi que la redistribution des routes de BGP vers OSPF et de OSPF vers BGP.
 
 # Objectifs
-~ Assurer une bascule du traffic de R100 vers R200 en cas de non disponibilité de R100 qui est master VRRP et assurer le tracking des liens et routes.
-~ Assurer une bascule du traffic de EDGE1 vers EDGE2 en cas de non disponibilité de EDGE1 qui est master HSRP et assurer le tracking des liens et routes
-~ R100 & R200 sont les routeurs Juniper qui tournent sur OSPF 
-~ EDGE1 & EDGE2 sont les routeurs Cisco ASBR qui font tourner du OSPF et BGP
+* Assurer une bascule du traffic de R100 vers R200 en cas de non disponibilité de R100 qui est master VRRP et assurer le tracking des liens et routes.
+* Assurer une bascule du traffic de EDGE1 vers EDGE2 en cas de non disponibilité de EDGE1 qui est master HSRP et assurer le tracking des liens et routes R100 & R200 sont les routeurs Juniper qui tournent sur OSPF 
+* EDGE1 & EDGE2 sont les routeurs Cisco ASBR qui font tourner du OSPF et BGP
 
 # Difficulté & Rémédiation
 --- Difficulté --- 
