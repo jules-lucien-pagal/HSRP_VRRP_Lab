@@ -1,0 +1,210 @@
+EDGE2#sh run 
+Building configuration...
+
+  
+Current configuration : 4910 bytes
+!
+! Last configuration change at 01:12:42 CEST Mon Jul 27 2026
+!
+version 15.9
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname EDGE2
+!
+boot-start-marker
+boot-end-marker
+!
+!
+security passwords min-length 8
+logging discriminator CONFIG mnemonics includes CONFIG_I 
+logging buffered discriminator CONFIG 150000
+!
+no aaa new-model
+!
+!
+!         
+clock timezone CET 1 0
+clock summer-time CEST recurring last Sun Mar 2:00 last Sun Oct 3:00
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name pamote.net
+ip cef
+login block-for 120 attempts 5 within 120
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext
+  hidekeys
+ path flash:/Archive_Config
+ maximum 14
+ rollback filter adaptive
+ write-memory
+username admpamote privilege 15 secret 9 $9$R/Xd6gle7dua/v$RpvbuICRCnafM.aKqBP9FWKXgy8HYLdspKiJXmrDU52
+!
+redundancy
+!
+no cdp log mismatch duplex
+!
+ip tcp synwait-time 5
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface GigabitEthernet0/0
+ description Connected_2_R200
+ ip address 10.57.250.2 255.255.255.248
+ standby 250 ip 10.57.250.3
+ standby 250 priority 110
+ standby 250 preempt
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description Connected_2_Internet 
+ ip address 6.6.6.1 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/2
+ description Connected_2_R100
+ ip address 10.57.251.2 255.255.255.248
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ description Connected_2_R200
+ ip address 10.57.130.1 255.255.255.248
+ standby 250 timers 5 10
+ standby 250 track 250 decrement 50
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospf 100
+ router-id 2.2.2.2
+ ispf
+ log-adjacency-changes detail
+ redistribute connected metric-type 1 subnets route-map Loopback_2_OSPF
+ redistribute bgp 65500 subnets
+ passive-interface Loopback0
+ network 10.57.130.0 0.0.0.7 area 0
+ network 10.57.250.0 0.0.0.7 area 0
+ network 10.57.251.0 0.0.0.7 area 0
+!
+router bgp 65500
+ bgp router-id 2.2.2.2
+ bgp log-neighbor-changes
+ bgp graceful-restart
+ neighbor 6.6.6.2 remote-as 65501
+ !
+ address-family ipv4
+  redistribute ospf 100
+  neighbor 6.6.6.2 activate
+ exit-address-family
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip ssh authentication-retries 5
+ip ssh source-interface Loopback0
+ip ssh version 2
+!
+!
+logging trap warnings
+ipv6 ioam timestamp
+!
+route-map Loopback_2_OSPF permit 2222
+ match interface Loopback0
+ set metric-type type-1
+ set tag 2222
+!
+!
+!
+control-plane
+!
+banner exec ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner incoming ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner login ^C
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************^C
+banner motd ^CAcces Non Authorise Sous Peine De Poursuite Judiciaire^C
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login local
+ transport input ssh
+!
+no scheduler allocate
+!
+end
+
