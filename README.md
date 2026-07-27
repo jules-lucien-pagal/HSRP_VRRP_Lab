@@ -14,8 +14,8 @@ OSPF a été utilisé comme IGP et BGP pour le Peering vers les Fournisseurs Int
 * Assurer une bascule du traffic de R100 vers R200 en cas de non disponibilité de R100 qui est master VRRP et assurer le tracking des liens et routes.
 * Assurer une bascule du traffic de EDGE1 vers EDGE2 en cas de non disponibilité de EDGE1 qui est master HSRP et assurer le tracking des liens et routes R100 & R200 sont les routeurs Juniper qui tournent sur OSPF 
 * EDGE1 & EDGE2 sont les routeurs Cisco ASBR qui font tourner du OSPF et BGP
-* SW300 est le Switch sur lequel sont configurés les Vlans et les interface ge-0/0/3 et ge-0/0/4 sont des interfaces Trunks vers R100 & R200
-* R100 & R200 ont des sous interfaces configurées et font du routage via le router-on-a stick , plus précisement le vlan-tagging comme l'appelle Juniper
+* SW300 est le Switch Juniper sur lequel sont configurés les Vlans ; les interface ge-0/0/3 et ge-0/0/4 sont des interfaces Trunks vers R100 & R200
+* R100 & R200 ont des sous interfaces configurées et font du router-on-a stick , plus précisement le vlan-tagging comme l'appelle Juniper
 
 # Difficulté & Rémédiation
 Difficulté
